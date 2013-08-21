@@ -1,0 +1,38 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PGMCodec", "PGMCodec\PGMCodec.vcxproj", "{4DA21888-43AD-45D1-B381-BC1193F23C67}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Histogram", "Histogram\Histogram.vcxproj", "{C9DD8A71-4504-4169-B8AA-F666334A20BB}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Edge Detector", "Edge Detector\Edge Detector.vcxproj", "{FAD654F9-6B49-4C30-B312-9E34D4AD5EEB}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Region Labeler", "Region Labeler\Region Labeler.vcxproj", "{EED232AB-EA1F-4ABF-BF5F-7A4DEEB814C5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4DA21888-43AD-45D1-B381-BC1193F23C67}.Debug|Win32.ActiveCfg = Debug|Win32
+		{4DA21888-43AD-45D1-B381-BC1193F23C67}.Debug|Win32.Build.0 = Debug|Win32
+		{4DA21888-43AD-45D1-B381-BC1193F23C67}.Release|Win32.ActiveCfg = Release|Win32
+		{4DA21888-43AD-45D1-B381-BC1193F23C67}.Release|Win32.Build.0 = Release|Win32
+		{C9DD8A71-4504-4169-B8AA-F666334A20BB}.Debug|Win32.ActiveCfg = Debug|Win32
+		{C9DD8A71-4504-4169-B8AA-F666334A20BB}.Debug|Win32.Build.0 = Debug|Win32
+		{C9DD8A71-4504-4169-B8AA-F666334A20BB}.Release|Win32.ActiveCfg = Release|Win32
+		{C9DD8A71-4504-4169-B8AA-F666334A20BB}.Release|Win32.Build.0 = Release|Win32
+		{FAD654F9-6B49-4C30-B312-9E34D4AD5EEB}.Debug|Win32.ActiveCfg = Debug|Win32
+		{FAD654F9-6B49-4C30-B312-9E34D4AD5EEB}.Debug|Win32.Build.0 = Debug|Win32
+		{FAD654F9-6B49-4C30-B312-9E34D4AD5EEB}.Release|Win32.ActiveCfg = Release|Win32
+		{FAD654F9-6B49-4C30-B312-9E34D4AD5EEB}.Release|Win32.Build.0 = Release|Win32
+		{EED232AB-EA1F-4ABF-BF5F-7A4DEEB814C5}.Debug|Win32.ActiveCfg = Debug|Win32
+		{EED232AB-EA1F-4ABF-BF5F-7A4DEEB814C5}.Debug|Win32.Build.0 = Debug|Win32
+		{EED232AB-EA1F-4ABF-BF5F-7A4DEEB814C5}.Release|Win32.ActiveCfg = Release|Win32
+		{EED232AB-EA1F-4ABF-BF5F-7A4DEEB814C5}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
