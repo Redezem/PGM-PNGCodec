@@ -21,7 +21,7 @@
 ////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////
 //
-class Image
+class PNGCodec
 {
  //
  ////////////////////////////////////////////////////
@@ -35,8 +35,13 @@ class Image
 	int depth;				// Number of channels (greyscale = 1 channel, RGB = 3)
 	unsigned char** data;		// Pixel data, indexed by [y][x]
 
-	Image(int inWidth, int inHeight, int inDepth);
-	~Image();
+	PNGCodec(int inWidth, int inHeight, int inDepth);
+	~PNGCodec();
+
+	void writeImageToPNG(png_structp &png, png_infop &pngInfo);
+
+	void readPNG(const char *filename);
+	void writePNG(const char *filename);
 
  private: //Redezem -- Static? Pff, don't need none of that...
 	void initPNGStructs(FILE *pngFP, png_structp &png, png_infop &pngInfo, int bForReading); 
@@ -61,7 +66,7 @@ class Image
 ////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////
 //
-class PNGCodec 
+/*class PNGCodec 
 {
  //
  ////////////////////////////////////////////////////
@@ -94,6 +99,6 @@ class PNGCodec
  //
  protected:
 };
-
+*/
 //#endif	// _H_PNGCODEC -- Redezem: NO :<
 

@@ -62,13 +62,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Image.h" />
-    <ClInclude Include="ImageGrey.h" />
     <ClInclude Include="PNGCodec.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Image.cpp" />
-    <ClCompile Include="ImageGrey.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PNGCodec.cpp" />
   </ItemGroup>

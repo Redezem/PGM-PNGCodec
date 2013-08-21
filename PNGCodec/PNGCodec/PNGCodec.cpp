@@ -14,7 +14,7 @@
 ////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////
 //
-Image::Image(int inWidth, int inHeight, int inDepth) 
+PNGCodec::PNGCodec(int inWidth, int inHeight, int inDepth) 
 {
 	if (inWidth <= 0)
 		throw new std::runtime_error("Width must be positive");
@@ -35,7 +35,7 @@ Image::Image(int inWidth, int inHeight, int inDepth)
 	}
 }
 
-Image::~Image()
+PNGCodec::~PNGCodec()
 {
 	if (data != NULL) {
 		for (int y = 0; y < height; y++) {
@@ -74,6 +74,7 @@ Image::~Image()
 //
 ////////////////////////////////////////////////////
 //
+/*
 PNGCodec::PNGCodec()
 {
 	// Nothing to init - all members are static
@@ -90,7 +91,7 @@ PNGCodec::PNGCodec()
 PNGCodec::~PNGCodec()
 {
 }
-
+*/
 
 
 
@@ -112,12 +113,11 @@ PNGCodec::~PNGCodec()
 //
 ////////////////////////////////////////////////////
 //
-Image* PNGCodec::readPNG(const char *filename)
+void PNGCodec::readPNG(const char *filename)
 {
 	FILE *pngFP;
 	png_structp png;
 	png_infop pngInfo;
-	Image* img;
 
 	if (filename == NULL)
 		throw new std::runtime_error("PNGCodec::readPNG(): filename must not be NULL");
@@ -131,9 +131,8 @@ Image* PNGCodec::readPNG(const char *filename)
 	/* If we have already read some of the signature */
 	///////////////   png_set_sig_bytes(png_ptr, sig_read);
 
-	img = readPNGIntoImage(png, pngInfo);
+	readPNGIntoImage(png, pngInfo);
 
-	return img;
 }
 
 
@@ -145,7 +144,7 @@ Image* PNGCodec::readPNG(const char *filename)
 //
 ////////////////////////////////////////////////////
 //
-void PNGCodec::writePNG(const char *filename, Image& img)
+void PNGCodec::writePNG(const char *filename)
 {
 	FILE *pngFP;
 	png_structp png;
@@ -162,7 +161,7 @@ void PNGCodec::writePNG(const char *filename, Image& img)
 
 	initPNGStructs(pngFP, png, pngInfo, 0);
 
-	writeImageToPNG(img, png, pngInfo);
+	writeImageToPNG(png, pngInfo);
 }
 
 
@@ -228,14 +227,13 @@ void PNGCodec::initPNGStructs(FILE *pngFP, png_structp &png, png_infop &pngInfo,
 //
 ////////////////////////////////////////////////////
 //
-Image* PNGCodec::readPNGIntoImage(png_structp &png, png_infop &pngInfo)
+void PNGCodec::readPNGIntoImage(png_structp &png, png_infop &pngInfo)
 {
 	unsigned int y;
 	png_uint_32 iWidth, iHeight, iRowLength;
 	png_byte iColourType, iBitsPerChannel, iNumChannels;
 	png_bytepp pngRows;
 
-	Image* img;
 
 	// For colour images: png_read_png(png, pngInfo, PNG_TRANSFORM_BGR | PNG_TRANSFORM_STRIP_ALPHA, png_voidp_NULL);
 	png_read_png(png, pngInfo, PNG_TRANSFORM_IDENTITY, png_voidp_NULL);
@@ -260,20 +258,23 @@ Image* PNGCodec::readPNGIntoImage(png_structp &png, png_infop &pngInfo)
 
 	iHeight = png_get_image_height(png, pngInfo);
 	iWidth = png_get_image_width(png, pngInfo);
+	
+	height=(int)iHeight;
+	width=(int)iWidth;
+	depth=1;
 
 	iRowLength = iWidth * (iBitsPerChannel * iNumChannels) / 8; // Should be same as iWidth as we are greyscale
 
-	img = new Image(iWidth, iHeight, 1);
     pngRows = png_get_rows(png, pngInfo);
 	for (int y = 0; y < iHeight; y++) {
-		memcpy(img->data[y], pngRows[y], iRowLength);
+		memcpy(data[y], pngRows[y], iRowLength);
 	}
 			
 
 	// Clean up
 	png_destroy_read_struct(&png, &pngInfo, png_infopp_NULL);
 
-	return img;
+
 }
 
 
@@ -289,15 +290,15 @@ Image* PNGCodec::readPNGIntoImage(png_structp &png, png_infop &pngInfo)
 //
 ////////////////////////////////////////////////////
 //
-void PNGCodec::writeImageToPNG(Image& img, png_structp& png, png_infop& pngInfo)
+void PNGCodec::writeImageToPNG( png_structp& png, png_infop& pngInfo)
 {
 	unsigned int y;
 	png_uint_32 iWidth, iHeight;
 	unsigned char** imgBuf;
 	png_bytepp pngRows;
 
-	iWidth = img.width;
-	iHeight = img.height;
+	iWidth = width;
+	iHeight = height;
 
 	// For colour images png_set_IHDR(png, pngInfo, iWidth, iHeight, 8, PNG_COLOR_TYPE_RGB,
 	//			PNG_INTERLACE_NONE, PNG_COMPRESSION_TYPE_BASE, PNG_FILTER_TYPE_BASE);
@@ -319,7 +320,7 @@ void PNGCodec::writeImageToPNG(Image& img, png_structp& png, png_infop& pngInfo)
 	// instead let it re-use imgBuf's rows: as the write to PNG won't change the
 	// row data, imgBuf won't be changed anyways.
 	for (y = 0; y < iHeight; y++)
-		pngRows[y] = img.data[y];
+		pngRows[y] = data[y];
 
 	png_write_image(png, pngRows);
 
