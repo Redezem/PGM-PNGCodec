@@ -1,4 +1,5 @@
 #pragma once
+#include <vector>
 class Region
 {
 public:
@@ -25,4 +26,19 @@ private:
 	void IsolateTrueStart();
 	int FindSize();
 	int ** AllocRegionMapArea();
+};
+
+class RegionStack
+{
+public:
+	RegionStack();
+	~RegionStack();
+
+	void AddRegion(Region*);
+	void DelRegion(Region*);
+	void RemoveDuplicates();
+	Region* GetRegion(int);
+	int GetStackSize();
+private:
+	std::vector<Region*> regionVector;
 };

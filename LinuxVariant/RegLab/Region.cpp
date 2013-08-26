@@ -145,3 +145,26 @@ int** Region::AllocRegionMapArea()
 	}
 	return newRegio;
 }
+
+//---------------Now for the Stack----------------------
+
+RegionStack::RegionStack()
+{
+	//Do something... I guess...
+}
+
+RegionStack::~RegionStack()
+{
+	//Okay, so, nuke them vector elements
+	while(regionVector.size()>0)
+	{
+		delete regionVector.last();
+		regionVector.pop_last();
+	}
+}
+
+void RegionStack::AddRegion(Region* inReg)
+{
+	regionVector.push_last(inReg);
+}
+
