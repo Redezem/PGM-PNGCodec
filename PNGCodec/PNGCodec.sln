@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PNGCodec", "PNGCodec\PNGCodec.vcxproj", "{87961D82-8152-421C-A5A1-766FFD87EC3A}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "standardpngCod", "standardpngCod\standardpngCod.vcxproj", "{72FF864E-0BA3-46FC-85EC-DE5AF0D144CA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -13,6 +15,10 @@ Global
 		{87961D82-8152-421C-A5A1-766FFD87EC3A}.Debug|Win32.Build.0 = Debug|Win32
 		{87961D82-8152-421C-A5A1-766FFD87EC3A}.Release|Win32.ActiveCfg = Release|Win32
 		{87961D82-8152-421C-A5A1-766FFD87EC3A}.Release|Win32.Build.0 = Release|Win32
+		{72FF864E-0BA3-46FC-85EC-DE5AF0D144CA}.Debug|Win32.ActiveCfg = Debug|Win32
+		{72FF864E-0BA3-46FC-85EC-DE5AF0D144CA}.Debug|Win32.Build.0 = Debug|Win32
+		{72FF864E-0BA3-46FC-85EC-DE5AF0D144CA}.Release|Win32.ActiveCfg = Release|Win32
+		{72FF864E-0BA3-46FC-85EC-DE5AF0D144CA}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
