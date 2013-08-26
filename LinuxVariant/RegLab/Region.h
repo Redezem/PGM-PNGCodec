@@ -4,7 +4,7 @@ class Region
 {
 public:
 	Region();
-	Region(unsigned char **,int,int,int,int,int);
+	Region(unsigned char ** inMag,int X, int Y,int inMaxX,int inMaxY, int Threshold);
 	~Region();
 
 	void SetImageMap(unsigned char **);

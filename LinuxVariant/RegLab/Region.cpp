@@ -168,3 +168,38 @@ void RegionStack::AddRegion(Region* inReg)
 	regionVector.push_last(inReg);
 }
 
+void RegionStack::DelRegion(Region* inReg)
+{
+	for (std::vector::iterator i = regionVector.begin(); i != regionVector.end(); ++i)
+	{
+		if(*i == inReg)
+		{
+			regionVector.erase(i);
+			return; //What? It's not like the same region will be pointed at twice *directly*...
+		}
+	}
+}
+
+void RegionStack::RemoveDuplicates()
+{
+	for (std::vector::iterator i = regionVector.begin(); i != regionVector.end(); ++i)
+	{
+		for (std::vector::iterator j = regionVector.begin(); i != regionVector.end(); ++i)
+		{
+			if (*i != *j && **i.GetStartCoords() == **j.GetStartCoords())
+			{
+				regionVector.erase(j);
+			}
+		}
+	}
+}
+
+Region* RegionStack::GetRegion( int i )
+{
+	return regionVector[i];
+}
+
+int RegionStack::GetStackSize()
+{
+	return regionVector.size();
+}

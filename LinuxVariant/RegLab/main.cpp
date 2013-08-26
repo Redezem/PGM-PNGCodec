@@ -12,7 +12,9 @@ int main(int argc,char**argv)
 {
 	char* fileName;
 	unsigned char** inMag,**outMag;
-	std::vector<Region> regionStack;
+	RegionStack regionStack;
+
+	unsigned char currChar;
 
 	if(argc>1)
 	{
@@ -31,5 +33,13 @@ int main(int argc,char**argv)
 	PGMCodec* masterCodec;
 	masterCodec = new PGMCodec(fileName);
 
-	inMag = masterCodec.getImageMatrix();
+	inMag = masterCodec->getImageMatrix();
+	regionStack.AddRegion(new Region(inMag, 0, 0, masterCodec->getWidth()-1, masterCodec->getHeight()-1, THRESHOLD));
+	for(int i=0; i<masterCodec.getWidth()-1; i++)
+	{
+		for(int j=0; j<masterCodec.getHeight()-1; j++)
+		{
+			
+		}
+	}
 }
