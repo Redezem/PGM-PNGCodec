@@ -33,7 +33,7 @@ ATHLON_OPT = -O2 -fomit-frame-pointer -mpentiumpro -march=pentiumpro -malign-fun
 
 all:	$(EXEC)
 
-Histogram.exe:$(OBJS) 
+Region.exe:$(OBJS) 
 	 $(CC) $(DEBUG) $(OPT) $(LDFLAGS) -o $(EXEC) $(OBJS) $(LIBS)
 
 %.o:	%.cpp

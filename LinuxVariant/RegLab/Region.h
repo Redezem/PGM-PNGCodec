@@ -11,7 +11,6 @@ public:
 	int ** GetRegionMap();
 	void SetPropThres(int);
 	int GetTotalSize();
-	void SetPropThres(int);
 	void SetStartCoords(int, int);
 	void SetMaxCoords(int,int);
 	void GetStartCoords(int*, int*);

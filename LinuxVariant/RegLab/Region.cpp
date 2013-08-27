@@ -1,8 +1,6 @@
 #include "Region.h"
-#include <math.h>
-#define NULL 0 //This source is Null-ified :D Get it? Get it?!
+#include <stdlib.h>
 
-				//..... YOU GUYS SUCK ;_;
 
 
 Region::Region() //Default Contstructor. Set all the things to nothings.
@@ -39,6 +37,11 @@ Region::~Region() //Blows up the region map. Try not to nuke the Image Map, miii
 		delete regionMap[i];
 	}
 	delete regionMap;
+}
+
+void Region::SetPropThres(int inProp)
+{
+	propThres=inProp;
 }
 
 void Region::SetImageMap(unsigned char** inMag)
@@ -138,7 +141,7 @@ int Region::FindSize()
 int** Region::AllocRegionMapArea()
 {
 	int** newRegio;
-	newRegio = new int[maxY];
+	newRegio = new int*[maxY];
 	for(int i=0;i<maxY;i++)
 	{
 		newRegio[i]=new int[maxX];
@@ -158,19 +161,19 @@ RegionStack::~RegionStack()
 	//Okay, so, nuke them vector elements
 	while(regionVector.size()>0)
 	{
-		delete regionVector.last();
-		regionVector.pop_last();
+		delete regionVector.back();
+		regionVector.pop_back();
 	}
 }
 
 void RegionStack::AddRegion(Region* inReg)
 {
-	regionVector.push_last(inReg);
+	regionVector.push_back(inReg);
 }
 
 void RegionStack::DelRegion(Region* inReg)
 {
-	for (std::vector::iterator i = regionVector.begin(); i != regionVector.end(); ++i)
+	for (std::vector<Region*>::iterator i = regionVector.begin(); i != regionVector.end(); ++i)
 	{
 		if(*i == inReg)
 		{
@@ -182,11 +185,17 @@ void RegionStack::DelRegion(Region* inReg)
 
 void RegionStack::RemoveDuplicates()
 {
-	for (std::vector::iterator i = regionVector.begin(); i != regionVector.end(); ++i)
+	for (std::vector<Region*>::iterator i = regionVector.begin(); i != regionVector.end(); ++i)
 	{
-		for (std::vector::iterator j = regionVector.begin(); i != regionVector.end(); ++i)
+		for (std::vector<Region*>::iterator j = regionVector.begin(); i != regionVector.end(); ++i)
 		{
-			if (*i != *j && **i.GetStartCoords() == **j.GetStartCoords())
+			Region *first, *second;
+			int fx,fy,sx,sy;
+			first=*i;
+			second =*j;
+			first->GetStartCoords(&fx,&fy);
+			second->GetStartCoords(&sx,&sy);
+			if (*i != *j && fx==sx && fy==sy)
 			{
 				regionVector.erase(j);
 			}

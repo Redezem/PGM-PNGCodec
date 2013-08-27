@@ -1,12 +1,14 @@
-#include <istream>
+#include <iostream>
 #include <string>
 #include <vector>
+#include <stdlib.h>
+#include <stdio.h>
 
 
 #include "Region.h"
 #include "../PGMCodec/PGMCodec.h"
 
-#define THRESHOLD 15
+#define THRESHOLD 100
 
 unsigned char ** GetRegionImage(Region*, int x, int y);
 
@@ -37,27 +39,32 @@ int main(int argc,char**argv)
 
 	inMag = masterCodec->getImageMatrix();
 	currChar = inMag[0][0];
-	std::cout << "adding first region.../n";
+	std::cout << "adding first region...\n";
 	regionStack.AddRegion(new Region(inMag, 0, 0, masterCodec->getWidth()-1, masterCodec->getHeight()-1, THRESHOLD));
-	for(int i=0; i<masterCodec.getHeight()-1; i++)
+	for(int i=0; i<masterCodec->getHeight()-1; i++)
 	{
-		for(int j=0; j<masterCodec.getWidth()-1; j++)
+		for(int j=0; j<masterCodec->getWidth()-1; j++)
 		{
-			if(abs(inMag[i][j]-currChar)>THRESHOLD)
+			if(abs((int)inMag[i][j]-(int)currChar)>THRESHOLD)
 			{
-				std::cout << "found new region at " << j << ", " << i << "/n";
-				regionStack.AddRegion(new Region(inMag,j,i,masterCodec->getWidth()-1,masterCodec->getHeight()-1,THRESHOLD))
+				std::cout << "inMag = " << (int)inMag[i][j] << ", currChar = " << (int)currChar << ", absolute = " << abs((int)inMag[i][j]-(int)currChar) << "\n";
+				std::cout << "found new region at " << j << ", " << i << "\n";
+				regionStack.AddRegion(new Region(inMag,j,i,masterCodec->getWidth()-1,masterCodec->getHeight()-1,THRESHOLD));
+				currChar=inMag[i][j];
 			}
 		}
 	}
 
 	regionStack.RemoveDuplicates();
 
-	for(int i = 0; i < regionStack.StackSize(); i++)
+	for(int i = 0; i < regionStack.GetStackSize(); i++)
 	{
-		outMag = GetRegionImage(regionStack.GetRegion(i),masterCodec.getWidth(),masterCodec.getHeight());
+		char* buffer = new char[20];
+		sprintf(buffer, "Region_%d.pgm", i);
+		outMag = GetRegionImage(regionStack.GetRegion(i),masterCodec->getWidth(),masterCodec->getHeight());
 		masterCodec->setImageMatrix(outMag);
-		masterCodec->writeAsPGM()
+		masterCodec->writeAsPGM(buffer);
+		outMag = NULL;
 	}
 }
 
