@@ -56,6 +56,8 @@ int main(int argc,char**argv)
 	for(int i = 0; i < regionStack.StackSize(); i++)
 	{
 		outMag = GetRegionImage(regionStack.GetRegion(i),masterCodec.getWidth(),masterCodec.getHeight());
+		masterCodec->setImageMatrix(outMag);
+		masterCodec->writeAsPGM()
 	}
 }
 
@@ -83,4 +85,6 @@ unsigned char ** GetRegionImage(Region* inReg, int x, int y)
 			}
 		}
 	}
+
+	return imageField;
 }
